@@ -1,0 +1,40 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+tips = sns.load_dataset('tips')
+
+print("First few rows of the dataset:")
+print(tips.head())
+print("\nDataset information:")
+print(tips.info())
+print("\nStatistical summary of the dataset:")
+print(tips.describe())
+
+plt.figure(figsize=(12, 6))
+
+plt.subplot(1, 2, 1)
+sns.histplot(tips['total_bill'], bins=20, kde=True, color='blue')
+plt.title('Distribution of Total Bill')
+
+plt.subplot(1, 2, 2)
+sns.histplot(tips['tip'], bins=20, kde=True, color='green')
+plt.title('Distribution of Tips')
+
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='total_bill', y='tip', data=tips, hue='sex', palette='Set1')
+plt.title('Total Bill vs Tip')
+plt.xlabel('Total Bill ($)')
+plt.ylabel('Tip ($)')
+plt.legend(title='Sex')
+plt.show()
+
+correlation = tips.corr()
+plt.figure(figsize=(8, 6))
+sns.heatmap(correlation, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+plt.title('Correlation Matrix')
+plt.show()
